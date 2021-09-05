@@ -17,4 +17,13 @@ public class Baseball {
             throw new IllegalArgumentException("입력한 숫자중 숫자가 아닌 것이 있습니다.");
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Baseball that = (Baseball) o;
+        if (this.number == that.number) {
+            return true;
+        }
+        return false;
+    }
 }
