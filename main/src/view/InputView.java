@@ -12,4 +12,9 @@ public class InputView {
         OutputView.pleaseInput();
         return scanner.nextLine().split("");
     }
+
+    public static String restartGame() {
+        OutputView.restartGame();
+        return scanner.nextLine();
+    }
 }

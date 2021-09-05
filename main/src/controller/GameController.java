@@ -11,19 +11,30 @@ public class GameController {
     }
 
     public static void runGame() {
-        boolean gameRestart = false;
-        while (!gameRestart) {
+        boolean gameRestart = true;
+        while (gameRestart) {
             playGame();
+            gameRestart = restartGame(InputView.restartGame());
         }
     }
 
     private static void playGame() {
         AnswerNumbers answerNumbers = new AnswerNumbers(RandomUtil.createNumbers());
-        boolean gameFinish = false;
-        while (!gameFinish) {
+        while (true) {
             InputNumbers inputNumbers = new InputNumbers(InputView.inputNumbers());
             checkGameHint(answerNumbers.getBalls(inputNumbers), answerNumbers.getStrikes(inputNumbers));
+            if (isGameOver(answerNumbers.getStrikes(inputNumbers))) {
+                OutputView.showGameOver();
+                break;
+            }
         }
+    }
+
+    private static boolean isGameOver(int strikes) {
+        if (strikes == 3) {
+            return true;
+        }
+        return false;
     }
 
     private static void checkGameHint(int balls, int strikes) {
@@ -37,5 +48,12 @@ public class GameController {
             OutputView.showNothing();
         }
         System.out.println();
+    }
+
+    private static boolean restartGame(String number) {
+        if (number.matches("^[1]$")) {
+            return true;
+        }
+        return false;
     }
 }
